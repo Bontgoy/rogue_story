@@ -1,9 +1,9 @@
+$LOAD_PATH.unshift "." # makes requiring files easier
+
+require "pp"
 require "curses" # require the curses gem
-include Curses # mixin curses
+require "ui"
+require "game"
 
-# The next three methods are provided by adding the Curses module
-
-init_screen # starts curses visual mode
-getch # reads single charater from stdin
-close_screen # closes the ncurses screen
+Game.new.run
 
