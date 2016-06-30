@@ -2,7 +2,8 @@ class Game
 
   def initialize
     @ui = UI.new
-    at_exit { ui.close } # runs at program exit
+    @options = { quit: false, randall: false } # variable for options
+    at_exit { ui.close; pp options } # See selected options at exit
   end
 
   def run
@@ -11,11 +12,14 @@ class Game
 
   private
 
-  attr_reader :ui
+  attr_reader :ui, :options # Add attr_reader for options
 
   def title_screen
-    ui.message(0, 0, "Rhack, a NetHack clone")
-    ui.message(1, 7, "by a daring developer")
-    ui.choice_prompt(3, 0, "Shall I pick a character's race, role, gender and  " + "alignment for you? [ynq]", "ynq")
+    TitleScreen.new(ui, options).render
+    quit?
+  end
+
+  def quit?
+   exit if options[:quit]
   end
 end
